@@ -1,0 +1,14 @@
+###
+POST http://localhost:5001/api/insert/
+
+###
+POST  http://localhost:5001/api/insert/cate
+
+###
+POST http://localhost:5001/api/user/mock
+
+
+###
+GET http://localhost:5001/api/order/dashboard
+Content-Type: application/json
+
