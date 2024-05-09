@@ -29,7 +29,7 @@ module.exports = {
       },
       backgroundColor: {
         main: "#ee3131",
-        overlay: "rgba(0,0,0,0.7)",
+        overlay: "rgba(0,0,0,0.3)",
       },
       colors: {
         main: "#ee3131",
@@ -86,7 +86,7 @@ module.exports = {
         },
       },
       animation: {
-        "slide-top":
+        "":
           "slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;",
         "slide-top-sm": "slide-top-sm 0.2s linear both;",
         "slide-right":

@@ -16,11 +16,15 @@ const BestSeller = () => {
   const [products, setProducts] = useState(null)
   const dispatch = useDispatch()
   const { newProducts } = useSelector((state) => state.products)
+  // console.log(newProducts)
   const { isShowModal } = useSelector((state) => state.app)
 
   const fetchProducts = async () => {
     const response = await apiGetProducts({ sort: "-sold" })
     if (response.success) {
+      // console.log({ bestSellers, newProducts })
+        // Bắt điều kiện cho 2 hàm kiểm tra xem cuộc gọi API đầu tiên (response[0]) có thành công hay không. 
+        // Nếu có (success là true) và sẽ được cập nhật state bestSellers và products với dữ liệu trả về từ cuộc gọi API đó.
       setBestSellers(response.products)
       setProducts(response.products)
     }
@@ -29,6 +33,7 @@ const BestSeller = () => {
     fetchProducts()
     dispatch(getNewProducts())
   }, [])
+  // Bắt hàm phụ thuộc vào 2 setProducts chính hàm xử lý nút sẽ ở dưới
   useEffect(() => {
     if (activedTab === 1) setProducts(bestSellers)
     if (activedTab === 2) setProducts(newProducts)
@@ -60,14 +65,14 @@ const BestSeller = () => {
       </div>
       <div className="w-full flex flex-col md:flex-row gap-4 mt-4">
         <img
-          src="https://cdn.shopify.com/s/files/1/1903/4853/files/banner2-home2_2000x_crop_center.png?v=1613166657"
+          src="https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/2024/04/banner/sac-AVA-720-220-720x220-1.png"
           alt="banner"
-          className="flex-1 object-contain"
+          className="flex-1 h-[140px] w-[222px] object-contain"
         />
         <img
-          src="https://cdn.shopify.com/s/files/1/1903/4853/files/banner1-home2_2000x_crop_center.png?v=1613166657"
+          src="https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn/2024/04/banner/Upgrade-iPhone-720-220--1--720x220-1.png"
           alt="banner"
-          className="flex-1 object-contain"
+          className="flex-1 h-[140px] w-[222px] object-contain"
         />
       </div>
     </div>

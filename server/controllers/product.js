@@ -38,13 +38,14 @@ const getProducts = asyncHandler(async (req, res) => {
   // Tách các trường đặc biệt ra khỏi query
   const excludeFields = ["limit", "sort", "page", "fields"]
   excludeFields.forEach((el) => delete queries[el])
-
   // Format lại các operators cho đúng cú pháp mongoose
   let queryString = JSON.stringify(queries)
   queryString = queryString.replace(
     /\b(gte|gt|lt|lte)\b/g,
     (macthedEl) => `$${macthedEl}`
   )
+
+  // Ckeck queries trong product để làm bộ lọc product
   const formatedQueries = JSON.parse(queryString)
   let colorQueryObject = {}
   if (queries?.title)
@@ -195,7 +196,9 @@ const uploadImagesProduct = asyncHandler(async (req, res) => {
 const addVarriant = asyncHandler(async (req, res) => {
   const { pid } = req.params
   const { title, price, color } = req.body
+  // Kiểm tra xem có file thumb được tải lên không
   const thumb = req?.files?.thumb[0]?.path
+  // Kiểm tra xem có file images được tải lên không
   const images = req.files?.images?.map((el) => el.path)
   if (!(title && price && color)) throw new Error("Missing inputs")
   const response = await Product.findByIdAndUpdate(

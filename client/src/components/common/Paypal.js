@@ -1,9 +1,4 @@
-
-import {
-    PayPalScriptProvider,
-    PayPalButtons,
-    usePayPalScriptReducer
-} from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { apiCreateOrder } from "apis";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +7,7 @@ import Swal from "sweetalert2";
 // This value is from the props in the UI
 const style = { "layout": "vertical" };
 
-// Custom component to wrap the PayPalButtons and show loading spinner
+// Thành phần tùy chỉnh để bao bọc các nút PayPal và hiển thị vòng quay tải
 const ButtonWrapper = ({ currency, showSpinner, amount, payload, setIsSuccess }) => {
     const [{ isPending, options }, dispatch] = usePayPalScriptReducer();
     const navigate = useNavigate()
@@ -40,6 +35,7 @@ const ButtonWrapper = ({ currency, showSpinner, amount, payload, setIsSuccess })
     return (
         <>
             {(showSpinner && isPending) && <div className="spinner" />}
+            {/* Sau khi thanh toán thành công sẽ truyền vào 1 array funtion để response Complete ra còn không thì chuyển về lại handleSaveOrder */}
             <PayPalButtons
                 style={style}
                 disabled={false}

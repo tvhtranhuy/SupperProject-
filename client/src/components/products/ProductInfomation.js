@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 import path from '../../ultils/path'
 import { useNavigate } from 'react-router-dom'
 
-
+// Vote đánh giá comment khi đã đăng nhập
 const ProductInfomation = ({ totalRatings, ratings, nameProduct, pid, rerender }) => {
     const [activedTab, setActivedTab] = useState(1)
     const dispatch = useDispatch()
@@ -18,13 +18,14 @@ const ProductInfomation = ({ totalRatings, ratings, nameProduct, pid, rerender }
 
     const handleSubmitVoteOption = async ({ comment, score }) => {
         if (!comment || !pid || !score) {
-            alert('Please vote when click submit')
+            alert('Please vote when click submit!')
             return
         }
         await apiRatings({ star: score, comment, pid, updatedAt: Date.now() })
         dispatch(showModal({ isShowModal: false, modalChildren: null }))
         rerender()
     }
+    // show Vote
     const handleVoteNow = () => {
         if (!isLoggedIn) {
             Swal.fire({
@@ -86,7 +87,7 @@ const ProductInfomation = ({ totalRatings, ratings, nameProduct, pid, rerender }
                     <span>Do you review this product?</span>
                     <Button handleOnClick={handleVoteNow}
                     >
-                        Vote now!
+                        Vote now!!!
                     </Button>
                 </div>
                 <div className='flex flex-col gap-4'>

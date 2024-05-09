@@ -11,8 +11,11 @@ export const appSlice = createSlice({
         modalChildren: null,
         isShowCart: false
     },
+    // Khi render showModal, showCart thì redux toolkit sẽ tự tạo cho mình 1 cái type 
+    // ứng với lại 2 action đã định nghĩa dưới đây 
     reducers: {
         showModal: (state, action) => {
+            // console.log(action)
             state.isShowModal = action.payload.isShowModal
             state.modalChildren = action.payload.modalChildren
         },

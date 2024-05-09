@@ -1,15 +1,13 @@
 import React, { memo, useEffect, useState } from "react"
 import { Line, Bar } from "react-chartjs-2"
 import { Chart } from "chart.js/auto"
-import {
-  getDaysInMonth,
-  getDaysInRange,
-  getMonthInYear,
-  getMonthsInRange,
-} from "ultils/helpers"
+import { getDaysInMonth, getDaysInRange, getMonthInYear, getMonthsInRange } from "ultils/helpers"
 
+// Nhận các props các giá trị data isMonth và customTime vào CustomChart
 const CustomChart = ({ data, isMonth, customTime }) => {
   const [chartData, setChartData] = useState([])
+  // Props của isMonth sẽ sử dụng hàm getMonthsInRange hoặc getDaysInRange từ file helpers.js 
+  // để sử dụng logic danh sách của ngày tháng
   useEffect(() => {
     const number = isMonth
       ? getMonthsInRange(customTime?.from, customTime?.to)
@@ -36,11 +34,8 @@ const CustomChart = ({ data, isMonth, customTime }) => {
         ticks: { display: true },
         grid: { color: "rgba(0,0,0,0.1)", drawTicks: false },
         min:
-          Math.min(...chartData?.map((el) => Math.round(+el.sum * 23500))) - 5 <
-          0
-            ? 0
-            : Math.min(...chartData?.map((el) => Math.round(+el.sum * 23500))) -
-              5,
+          Math.min(...chartData?.map((el) => Math.round(+el.sum * 23500))) - 5 < 0 ? 0
+            : Math.min(...chartData?.map((el) => Math.round(+el.sum * 23500))) - 5,
         max:
           Math.max(...chartData?.map((el) => Math.round(+el.sum * 23500))) + 5,
         border: { dash: [20, 0] },

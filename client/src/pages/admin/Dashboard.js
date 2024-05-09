@@ -8,6 +8,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import { Pie } from "react-chartjs-2"
 ChartJS.register(ArcElement, Tooltip, Legend)
 const Dashboard = () => {
+  // sử dụng useState để lưu trữ dữ liệu ('data') cài đặt chế độ hiển thị theo tháng hoặc ngày (isMonth), và thời gian tùy chỉnh (customTime)
   const [data, setData] = useState()
   const [isMonth, setIsMonth] = useState(false)
   const [customTime, setCustomTime] = useState({
@@ -18,6 +19,7 @@ const Dashboard = () => {
     const response = await apiGetDashboard(params)
     if (response.success) setData(response.data)
   }
+  // Sử dụng useEffect để gọi fetchDataDashboard khi có sự thay đổi đến từ vị trí của user khi mua hàng sẽ được thiết lập ngày sản phẩm đã được mua hoặc tạo tài khoảng
   useEffect(() => {
     const type = isMonth ? "MTH" : "D"
     const params = { type }
@@ -28,6 +30,9 @@ const Dashboard = () => {
   const handleCustomTime = () => {
     setCustomTime({ from: "", to: "" })
   }
+
+  // Sử dụng pieData để tạo biểu đồ hình tròn được thay đổi dữ liệu sau khi thông qua mỗi đơn hàng thành công hay đơn hàng đã hủy trong ngày tháng đó. 
+  // Đi kèm đó là biểu đồ đường của CustomChart kết hợp với time của tuần tháng đó để phân tích và tạo dữ liệu biể đồ cho bên admin
   const pieData = {
     labels: ["Tông đơn đã hủy", "Tổng đơn thành công"],
     datasets: [
@@ -79,7 +84,7 @@ const Dashboard = () => {
           />
           <BoxInfo
             text="Số sản phẩm đã bán"
-            // icon={<img src="/dong.svg" className="h-6 object-contain" />}
+            icon={<img src="/dong.svg" className="h-6 object-contain" />}
             number={
               data?.soldQuantities?.length > 0
                 ? data?.soldQuantities[0]?.count
@@ -164,7 +169,7 @@ const Dashboard = () => {
           </div>
           <div className="col-span-3 rounded-md border p-4">
             <span className="font-bold gap-8">
-              Số người truy cập chưa đăng ký và đã đăng ký
+              Tổng số đơn hủy và số đơn đã thanh toán thành công
             </span>
             <div>
               <Pie data={pieData} />;

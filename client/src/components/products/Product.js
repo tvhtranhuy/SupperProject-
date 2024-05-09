@@ -33,6 +33,8 @@ const Product = ({
   const [isShowOption, setIsShowOption] = useState(false)
   const { current } = useSelector((state) => state.user)
   const handleClickOptions = async (e, flag) => {
+    // console.log(current)
+    // Sử lý việc mua hàng khi chưa đăng nhập 
     e.stopPropagation()
     if (flag === "CART") {
       if (!current)
@@ -86,6 +88,7 @@ const Product = ({
       )
     }
   }
+  // console.log(productData)
   return (
     <div className={clsx("w-full col-span-1 text-base px-[10px]", className)}>
       <div

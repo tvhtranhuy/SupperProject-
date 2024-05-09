@@ -1,16 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react"
 import { InputField, Button, Loading } from "components"
-import {
-  apiRegister,
-  apiLogin,
-  apiForgotPassword,
-  apiFinalRegister,
-} from "apis/user"
+import { apiRegister, apiLogin, apiForgotPassword, apiFinalRegister, } from "apis/user"
 import Swal from "sweetalert2"
 import { useNavigate, Link, useSearchParams } from "react-router-dom"
 import path from "ultils/path"
 import { login } from "store/user/userSlice"
-import { showModal } from "store/app/appSlice"
 import { useDispatch } from "react-redux"
 import { toast } from "react-toastify"
 import { validate } from "ultils/helpers"
@@ -43,6 +37,7 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const handleForgotPassword = async () => {
     const response = await apiForgotPassword({ email })
+    // console.log(response)
     if (response.success) {
       toast.success(response.mes, { theme: "colored" })
     } else toast.info(response.mes, { theme: "colored" })
@@ -51,37 +46,41 @@ const Login = () => {
     resetPayload()
   }, [isRegister])
   // SUBMIT
+  // console.log(validate(payload))
   const handleSubmit = useCallback(async () => {
     const { firstname, lastname, mobile, ...data } = payload
 
-    const invalids = isRegister
-      ? validate(payload, setInvalidFields)
-      : validate(data, setInvalidFields)
+    const invalids = isRegister ? validate(payload, setInvalidFields) : validate(data, setInvalidFields)
+    // console.log(invalids)
     if (invalids === 0) {
-      if (isRegister) {
-        dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }))
-        const response = await apiRegister(payload)
-        dispatch(showModal({ isShowModal: false, modalChildren: null }))
-        if (response.success) {
-          setIsVerifiedEmail(true)
-        } else Swal.fire("Oops!", response.mes, "error")
-      } else {
-        const rs = await apiLogin(data)
-        if (rs.success) {
-          dispatch(
-            login({
-              isLoggedIn: true,
-              token: rs.accessToken,
-              userData: rs.userData,
-            })
-          )
-          searchParams.get("redirect")
-            ? navigate(searchParams.get("redirect"))
-            : navigate(`/${path.HOME}`)
-        } else Swal.fire("Oops!", rs.mes, "error")
+      try {
+        if (isRegister) {
+          const response = await apiRegister(payload)
+          // Hàm xử lý sự kiện tạo tài khoản
+          if (response && response.success) {
+            setIsVerifiedEmail(true)
+            // Swal.fire('Congratulations', response.mes, 'success').then(() => {
+            //     setIsRegister(false)
+            //     resetPayload()
+            // });
+          } else {
+            Swal.fire('Oops!', response ? response.mes : 'An error occurred. Please try again later.', 'error')
+          }
+        } else {
+          const rs = await apiLogin(data);
+          if (rs.success) {
+            dispatch(login({ isLoggedIn: true, token: rs.accessToken, userData: rs.userData }))
+            // Call Api for login account to page Home
+            navigate(`/${path.HOME}`);
+          } else Swal.fire('Oops!', rs.mes, 'Error!')
+          // console.log(rs)
+        }
+      } catch (error) {
+        // console.error('Error:', error)
+        Swal.fire('Oops!', 'An error occurred. Please try again later.', 'error')
       }
     }
-  }, [payload, isRegister])
+  }, [payload, isRegister, navigate])
 
   const finalRegister = async () => {
     const response = await apiFinalRegister(token)
@@ -121,18 +120,18 @@ const Login = () => {
         </div>
       )}
       {isForgotPassword && (
-        <div className="absolute animate-slide-right top-0 left-0 bottom-0 right-0 bg-white flex flex-col items-center px-4 py-8 z-50">
-          <div className="flex w-full flex-col gap-4">
+        <div className="absolute animate-slide-right top-0 left-0 bottom-0 right-0 bg-overlay flex flex-col items-center px-4 py-8 z-50">
+          <div className="flex flex-col w-full text-[30px] text-white items-center gap-2">
             <label htmlFor="email">Enter your email:</label>
             <input
               type="text"
               id="email"
-              className="md:w-[800px] w-full pb-2 border-b outline-none placeholder:text-sm"
-              placeholder="Exp: email@gmail.com"
+              className="w-full pb-1 border-b outline-none placeholder:text-sm md:w-[700px] bg-transparent text-white"
+              placeholder="abcd@gmail.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
-            <div className="flex items-center justify-end w-full gap-4">
+            <div className="flex items-center justify-end gap-4">
               <Button
                 name="Submit"
                 handleOnClick={handleForgotPassword}
@@ -151,12 +150,12 @@ const Login = () => {
         </div>
       )}
       <img
-        src="https://img.freepik.com/premium-photo/shopping-cart-card-icon-discounts_116441-26066.jpg"
+        src="https://cdn5.f-cdn.com/contestentries/1578585/21468461/5d62b49ac544b_thumb900.jpg"
         alt=""
         className="w-full h-full object-cover"
       />
       <div className="absolute top-0 bottom-0 left-0 right-0 items-center justify-center flex">
-        <div className="p-8 bg-white flex flex-col items-center rounded-md md:min-w-[500px]">
+        <div className="p-8 bg-overlay flex flex-col items-center rounded-md md:min-w-[500px]">
           <h1 className="text-[28px] font-semibold text-main mb-8">
             {isRegister ? "Register" : "Login"}
           </h1>

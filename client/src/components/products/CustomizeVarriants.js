@@ -16,6 +16,7 @@ const CustomizeVarriants = ({ customizeVarriant, setCustomizeVarriant, render })
     })
     const dispatch = useDispatch()
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm()
+    // Gọi customizeVarriant thông qua api để cập nhật 3 biến dưới mỗi khi update ảnh
     useEffect(() => {
         reset({
             title: customizeVarriant?.title,
@@ -59,6 +60,7 @@ const CustomizeVarriants = ({ customizeVarriant, setCustomizeVarriant, render })
         }
         setPreview(prev => ({ ...prev, images: imagesPreview }))
     }
+    // Được gọi mỗi khi thumb và images được thay đổi
     useEffect(() => {
         if (watch('thumb') instanceof FileList && watch('thumb').length > 0)
             handlePreviewThumb(watch('thumb')[0])

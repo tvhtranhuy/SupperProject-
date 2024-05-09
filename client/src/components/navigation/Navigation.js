@@ -6,15 +6,15 @@ import { useForm } from "react-hook-form"
 import path from "ultils/path"
 import { IoMenuSharp } from "react-icons/io5"
 
-const Navigation = () => {
+// Trang thanh công cụ chuyển trang của Navigation và tìm kiếm
+function Navigation() {
   const {
-    register,
-    formState: { errors, isDirty },
-    watch,
+    register, formState: { errors, isDirty }, watch,
   } = useForm()
   const q = watch("q")
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false)
+  // Call api prouct and function handling in search toolbar
   useEffect(() => {
     const handleEnter = (e) => {
       if (e.keyCode === 13) {
@@ -47,11 +47,9 @@ const Navigation = () => {
                 to={el.path}
                 key={el.id}
                 onClick={() => setShowMenu(false)}
-                className={({ isActive }) =>
-                  isActive
-                    ? "py-3 border-b text-sm hover:text-main text-main"
-                    : "py-3 border-b text-sm hover:text-main"
-                }
+                className={({ isActive }) => isActive
+                  ? "py-3 border-b text-sm hover:text-main text-main"
+                  : "py-3 border-b text-sm hover:text-main"}
               >
                 {el.value}
               </NavLink>
@@ -70,11 +68,9 @@ const Navigation = () => {
           <NavLink
             to={el.path}
             key={el.id}
-            className={({ isActive }) =>
-              isActive
-                ? "md:pr-12 pr-6 text-sm hover:text-main text-main"
-                : "md:pr-12 pr-6 text-sm hover:text-main"
-            }
+            className={({ isActive }) => isActive
+              ? "md:pr-12 pr-6 text-sm hover:text-main text-main"
+              : "md:pr-12 pr-6 text-sm hover:text-main"}
           >
             {el.value}
           </NavLink>
@@ -85,8 +81,7 @@ const Navigation = () => {
         register={register}
         errors={errors}
         placeholder="Search something..."
-        style="flex-none border-none outline-none"
-      />
+        style="flex-none border-none outline-none" />
     </div>
   )
 }

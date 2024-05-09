@@ -3,6 +3,7 @@ import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io'
 
+// Sử dụng useBreadcrumbs để tính toán và trả về các breadcrumb dựa trên các route được xác định trước đó trong ứng dụng.
 const Breadcrumb = ({ title, category }) => {
     const routes = [
         { path: "/:category", breadcrumb: category },

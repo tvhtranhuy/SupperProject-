@@ -26,6 +26,7 @@ const Personal = ({ navigate }) => {
             address: current?.address,
         })
     }, [current])
+    // User cung cấp thông tin cho admin up load và sử xóa ở Personal
     const handleUpdateInfor = async (data) => {
         const formData = new FormData()
         if (data.avatar.length > 0) formData.append('avatar', data.avatar[0])

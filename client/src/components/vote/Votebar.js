@@ -5,6 +5,7 @@ const Votebar = ({ number, ratingCount, ratingTotal }) => {
 
     const percentRef = useRef()
     useEffect(() => {
+        // Só người ratingsCount *100 chia cho ratingTotal để ra được số lượng đánh giá vote từ 1 đến 5 *
         const percent = Math.round(ratingCount * 100 / ratingTotal) || 0
         percentRef.current.style.cssText = `right: ${100 - percent}%`
     }, [ratingCount, ratingTotal])

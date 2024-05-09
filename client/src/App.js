@@ -58,6 +58,7 @@ function App() {
       )}
       {isShowModal && <Modal>{modalChildren}</Modal>}
       <Routes>
+        {/* Public */}
         <Route path={path.CHECKOUT} element={<Checkout />} />
         <Route path={path.PUBLIC} element={<Public />}>
           <Route path={path.HOME} element={<Home />} />
@@ -72,6 +73,7 @@ function App() {
           <Route path={path.RESET_PASSWORD} element={<ResetPassword />} />
           <Route path={path.ALL} element={<Home />} />
         </Route>
+        {/* Admin */}
         <Route path={path.ADMIN} element={<AdminLayout />}>
           <Route path={path.DASHBOARD} element={<Dashboard />} />
           <Route path={path.MANAGE_ORDER} element={<ManageOrder />} />
@@ -81,12 +83,14 @@ function App() {
           <Route path={path.CREATE_BLOG} element={<CreateBlog />} />
           <Route path={path.MANAGE_BLOGS} element={<ManageBlog />} />
         </Route>
+        {/* User */}
         <Route path={path.MEMBER} element={<MemberLayout />}>
           <Route path={path.PERSONAL} element={<Personal />} />
           <Route path={path.MY_CART} element={<DetailCart />} />
           <Route path={path.WISHLIST} element={<Wishlist />} />
           <Route path={path.HISTORY} element={<History />} />
         </Route>
+        {/* Public */}
         <Route path={path.FINAL_REGISTER} element={<FinalRegister />} />
         <Route path={path.LOGIN} element={<Login />} />
       </Routes>

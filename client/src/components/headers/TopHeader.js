@@ -31,26 +31,19 @@ const TopHeaders = () => {
       })
   }, [mes])
   return (
-    <div className="h-[38px] w-full bg-main flex items-center justify-center">
+    <div className="h-[35px] w-full bg-blue-500 flex items-center justify-center">
       <div className="w-main flex items-center justify-between text-xs text-white">
-        <span className="hidden md:inline-block">
-          ORDER ONLINE OR CALL US (+1800) 000 8808
-        </span>
-        {isLoggedIn && current ? (
-          <div className=" flex gap-4 w-full md:w-fit text-sm justify-between md:justify-start items-center">
-            <span className="pl-2">{`Welcome, ${current?.lastname} ${current?.firstname}`}</span>
-            <span
-              onClick={() => dispatch(logout())}
-              className="hover:rounded-full hover:bg-gray-200 cursor-pointer hover:text-main p-2"
-            >
-              <AiOutlineLogout size={18} />
-            </span>
-          </div>
-        ) : (
-          <Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>
-            Sign In or Create Account
-          </Link>
-        )}
+        <span>ORDER ONLINE OR CALL US (+1800) 000 8808</span>
+        {isLoggedIn ? <div className="flex gap-2 items-center gap-2 text-sm">
+          <span>{`Welcome! ${current?.lastname}`}</span>
+          <span
+            onClick={() => dispatch(logout())}
+            className="hover:rounded-full hover-bg-gray-200 cursor-pointer hover:text-main bg-2">
+            <AiOutlineLogout size={18} />
+          </span>
+        </div> :
+          <Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>Sign In or Create Account</Link>
+        }
       </div>
     </div>
   )

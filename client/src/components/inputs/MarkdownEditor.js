@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
+// Quản lý trạng thái tương tác để cập nhật nội dung của trình soạn thảo
 const MarkdownEditor = ({ label, value, changeValue, name, invalidFields, setInvalidFields, setIsFocusDescription }) => {
     return (
         <div className='flex flex-col '>

@@ -1,14 +1,5 @@
 import React from "react"
-import {
-  Sidebar,
-  Banner,
-  BestSeller,
-  DealDaily,
-  FeatureProducts,
-  CustomSlider,
-  Blogs,
-  Product,
-} from "../../components"
+import { Sidebar, Banner, BestSeller, DealDaily, FeatureProducts, CustomSlider, Blogs, Product, } from "../../components"
 import { useSelector } from "react-redux"
 import icons from "../../ultils/icons"
 import withBaseComponent from "hocs/withBaseComponent"

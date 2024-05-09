@@ -24,7 +24,8 @@ const DealDaily = ({ dispatch }) => {
       dispatch(
         getDealDaily({ data: pr, time: Date.now() + 24 * 60 * 60 * 1000 })
       )
-
+      // Sử dụng moment để get date time  thiết lập giờ phút giây theo kiểu cthuc dưới 
+      // thiết lập hàm moment để get ngày tháng năm và múi giờ khi được reset để đổi sản phẩm là mặc định 7h
       //   const today = `${moment().format("MM/DD/YYYY")} 7:00:00`
       //   const seconds =
       //     new Date(today).getTime() - new Date().getTime() + 24 * 3600 * 1000

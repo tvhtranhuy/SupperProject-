@@ -64,7 +64,7 @@ body {
 .image-slider button.slick-next::before {
   color: gray;
   content: "\276F";
-  background-color: #1c20ff;
+  background-color: #f3acb8;
   width: 40px;
   height: 40px;
   font-size: 30px;
@@ -76,7 +76,7 @@ body {
 .image-slider button.slick-prev::before {
   color: gray;
   content: "\276E";
-  background-color: #1c20ff;
+  background-color: #f3acb8;
   width: 40px;
   height: 40px;
   font-size: 30px;

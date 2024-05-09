@@ -12,6 +12,7 @@ const Checkout = ({ dispatch, navigate }) => {
   const { currentCart, current } = useSelector((state) => state.user)
   const [isSuccess, setIsSuccess] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState("")
+  // console.log(current)
   useEffect(() => {
     if (isSuccess) dispatch(getCurrent())
   }, [isSuccess])
@@ -44,7 +45,7 @@ const Checkout = ({ dispatch, navigate }) => {
       products: currentCart,
       total: Math.round(
         +currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum, 0) /
-          23500
+        23500
       ),
       address: current?.address,
     }
@@ -93,12 +94,8 @@ const Checkout = ({ dispatch, navigate }) => {
             <div className="flex flex-col gap-6">
               <span className="flex items-center gap-8 text-sm">
                 <span className="font-medium">Subtotal:</span>
-                <span className="text-main font-bold">{`${formatMoney(
-                  currentCart?.reduce(
-                    (sum, el) => +el?.price * el.quantity + sum,
-                    0
-                  )
-                )} VND`}</span>
+                <span className="text-main font-bold">{`${formatMoney(currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum, 0))} VND`}
+                </span>
               </span>
               <span className="flex items-center gap-8 text-sm">
                 <span className="font-medium">Address:</span>
@@ -122,21 +119,10 @@ const Checkout = ({ dispatch, navigate }) => {
                 <Paypal
                   payload={{
                     products: currentCart,
-                    total: Math.round(
-                      +currentCart?.reduce(
-                        (sum, el) => +el?.price * el.quantity + sum,
-                        0
-                      ) / 23500
-                    ),
+                    total: Math.round(+currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum, 0) / 23500),
                     address: current?.address,
                   }}
-                  setIsSuccess={setIsSuccess}
-                  amount={Math.round(
-                    +currentCart?.reduce(
-                      (sum, el) => +el?.price * el.quantity + sum,
-                      0
-                    ) / 23500
-                  )}
+                  setIsSuccess={setIsSuccess} amount={Math.round(+currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum, 0) / 23500)}
                 />
               </div>
             )}

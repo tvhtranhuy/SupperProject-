@@ -1,14 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { createSearchParams, useParams } from "react-router-dom"
 import { apiGetProduct, apiGetProducts, apiUpdateCart } from "apis"
-import {
-  Breadcrumb,
-  Button,
-  SelectQuantity,
-  ProductExtraInfoItem,
-  ProductInfomation,
-  CustomSlider,
-} from "components"
+import { Breadcrumb, Button, SelectQuantity, ProductExtraInfoItem, ProductInfomation, CustomSlider } from "components"
 import Slider from "react-slick"
 import ReactImageMagnify from "react-image-magnify"
 import { formatMoney, fotmatPrice, renderStarFromNumber } from "ultils/helpers"
@@ -104,6 +97,8 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate }) => {
 
   const handleQuantity = useCallback(
     (number) => {
+      // log số lượng muốn mua khi ấn trực tiếp thay vì ấn từng cái 
+      // console.log(number)
       if (!Number(number) || Number(number) < 1) {
         return
       } else {

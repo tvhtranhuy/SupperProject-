@@ -26,6 +26,7 @@ const SearchItem = ({ name, activeClick, changeActiveFitler, type = 'checkbox' }
         const repsonse = await apiGetProducts({ sort: '-price', limit: 1 })
         if (repsonse.success) setBestPrice(repsonse.products[0]?.price)
     }
+    // Logic xử lý lọc theo màu được thông qua api category
     useEffect(() => {
         let param = []
         for (let i of params.entries()) param.push(i)
@@ -50,21 +51,25 @@ const SearchItem = ({ name, activeClick, changeActiveFitler, type = 'checkbox' }
 
     const deboucePriceFrom = useDebounce(price.from, 500)
     const deboucePriceTo = useDebounce(price.to, 500)
+    // Logic xử lý lọc theo số lượng giá cả
     useEffect(() => {
         let param = []
         for (let i of params.entries()) param.push(i)
         const queries = {}
+        // Nếu giá trị của price.from hoặc price.to là số dương, nó sẽ được thêm vào queries, nếu không thì xóa khỏi queries không thể tạo
         for (let i of param) queries[i[0]] = i[1]
         if (Number(price.from) > 0) queries.from = price.from
         else delete queries.from
         if (Number(price.to) > 0) queries.to = price.to
         else delete queries.to
+        // queries.page được gán bằng 1 để đảm bảo rằng trang được thiết lập lại về trang đầu tiên mỗi khi giá trị price.from hoặc price.to thay đổi
         queries.page = 1
         navigate({
             pathname: `/${category}`,
             search: createSearchParams(queries).toString()
         })
     }, [deboucePriceFrom, deboucePriceTo])
+    // console.log([deboucePriceFrom, deboucePriceTo])
 
     return (
         <div

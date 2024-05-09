@@ -1,17 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react"
-import {
-  useParams,
-  useSearchParams,
-  createSearchParams,
-  useNavigate,
-} from "react-router-dom"
-import {
-  Breadcrumb,
-  Product,
-  SearchItem,
-  InputSelect,
-  Pagination,
-} from "../../components"
+import { useParams, useSearchParams, createSearchParams, useNavigate, } from "react-router-dom"
+import { Breadcrumb, Product, SearchItem, InputSelect, Pagination, } from "../../components"
 import { apiGetProducts } from "../../apis"
 import Masonry from "react-masonry-css"
 import { sorts } from "../../ultils/contants"
@@ -28,6 +17,7 @@ const Products = () => {
   const [products, setProducts] = useState(null)
   const [activeClick, setActiveClick] = useState(null)
   const [params] = useSearchParams()
+  // console.log(params)
   const [sort, setSort] = useState("")
   const { category } = useParams()
 
@@ -36,9 +26,15 @@ const Products = () => {
     const response = await apiGetProducts(queries)
     if (response.success) setProducts(response)
   }
+
+  // sau khi set Debounce trong hook thì hook có tác dụng là check URL trong fetchProductsByCategory
+  // nếu URL trong fetchProductsByCategory thay đổi thì Debounce trong hook có nhiệm vụ nhảy vào để call api mới lại
   useEffect(() => {
+    // Trỏ searchItems qua product của bộ lọc useSearchParams
     const queries = Object.fromEntries([...params])
     let priceQuery = {}
+    // Text log của lọc theo giá và màu sắc
+    // console.log(param)
     if (queries.to && queries.from) {
       priceQuery = {
         $and: [

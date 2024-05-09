@@ -17,7 +17,6 @@ const OrderItem = ({ dispatch, color, dfQuantity = 1, price, title, thumbnail, p
         dispatch(updateCart({ pid, quantity, color }))
     }, [quantity])
     // Set quantity
-
     return (
         <div className='w-main mx-auto border-b font-bold py-3 grid grid-cols-10'>
             <span className='col-span-6 w-full text-center'>

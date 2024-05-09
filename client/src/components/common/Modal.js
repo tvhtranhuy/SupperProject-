@@ -4,7 +4,8 @@ import { showModal } from "store/app/appSlice"
 
 const Modal = ({ children }) => {
   const dispatch = useDispatch()
-
+  // tạo trang modal được gắn vào appSlice để show trên mặt app của appSlice
+  // thông qua file ProductImfomation
   return (
     <div
       onClick={() =>

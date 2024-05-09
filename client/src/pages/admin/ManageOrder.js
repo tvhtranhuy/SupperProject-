@@ -1,9 +1,4 @@
-import {
-  apiDeleteOrderByAdmin,
-  apiGetOrders,
-  apiUpdateCart,
-  apiUpdateStatus,
-} from "apis"
+import { apiDeleteOrderByAdmin, apiGetOrders, apiUpdateCart, apiUpdateStatus, } from "apis"
 import { Button, InputForm, Pagination } from "components"
 import useDebounce from "hooks/useDebounce"
 import moment from "moment"
@@ -11,12 +6,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { BiCustomize, BiEdit } from "react-icons/bi"
 import { RiDeleteBin6Line } from "react-icons/ri"
-import {
-  createSearchParams,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom"
+import { createSearchParams, useLocation, useNavigate, useSearchParams, } from "react-router-dom"
 import { toast } from "react-toastify"
 import Swal from "sweetalert2"
 import { formatMoney } from "ultils/helpers"
@@ -25,12 +15,7 @@ const ManageOrder = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [params] = useSearchParams()
-  const {
-    register,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useForm()
+  const { register, formState: { errors }, watch, setValue, } = useForm()
   const [orders, setOrders] = useState()
   const [counts, setCounts] = useState(0)
   const [update, setUpdate] = useState(false)

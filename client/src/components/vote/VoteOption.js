@@ -10,6 +10,7 @@ const VoteOption = ({ nameProduct, handleSubmitVoteOption }) => {
     const [comment, setComment] = useState('')
     const [score, setScore] = useState(null)
 
+    // sau khi thông qua modal của productImformation, tạo 1 modalRel sử dụng scrollIntoView để căn bản smooth ra giữa màn hình trong productImformation
     useEffect(() => {
         modalRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' })
     }, [])

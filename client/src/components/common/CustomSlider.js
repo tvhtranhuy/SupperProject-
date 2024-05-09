@@ -2,6 +2,7 @@ import React, { memo } from "react"
 import Slider from "react-slick"
 import { Product } from "components"
 
+// thanh cuộn trong product được trung bày sản phẩm tại Banner và DetailProduct
 const CustomSlider = ({ products, activedTab, normal, slidesToShow = 3 }) => {
   const settings = {
     dots: false,
