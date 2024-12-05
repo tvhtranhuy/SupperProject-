@@ -6,27 +6,39 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
     // Do something before request is sent
-    let localStorageData = window.localStorage.getItem('persist:shop/user')
+    let localStorageData = window.localStorage.getItem('persist:shop/user');
+try {
     if (localStorageData && typeof localStorageData === 'string') {
-        localStorageData = JSON.parse(localStorageData)
-        const accessToken = JSON.parse(localStorageData?.token)
-        config.headers = { authorization: `Bearer ${accessToken}` }
-        return config
-    } else return config;
-}, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
+        localStorageData = JSON.parse(localStorageData);
+        const accessToken = JSON.parse(localStorageData?.token);
+        if (accessToken) {
+            config.headers = { authorization: `Bearer ${accessToken}` };
+        }
+    }
+} catch (err) {
+    console.error("Error parsing localStorage data:", err);
+}
+return config;
+
 });
 
-// Add a response interceptor
-instance.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response.data;
-}, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    return error.response.data;
-});
+instance.interceptors.response.use(
+    function (response) {
+        return response.data;
+    },
+    function (error) {
+        if (error.response) {
+            // Lỗi từ phía máy chủ (HTTP status code không phải 2xx)
+            return Promise.reject(error.response.data);
+        } else if (error.request) {
+            // Không nhận được phản hồi từ máy chủ
+            return Promise.reject({ message: "No response received from server" });
+        } else {
+            // Lỗi khi cấu hình yêu cầu
+            return Promise.reject({ message: error.message });
+        }
+    }
+);
+
 
 export default instance

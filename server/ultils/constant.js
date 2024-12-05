@@ -2,29 +2,29 @@ exports.users = [
     {
         email: 'user-01@gmail.com',
         password: 123456,
-        firstname: 'ngo',
-        lastname: 'hip3',
+        firstname: 'Tran',
+        lastname: 'huy3',
         mobile: '01234567788'
     },
     {
         email: 'user-02@gmail.com',
         password: 123456,
-        firstname: 'ngo',
-        lastname: 'hip2',
+        firstname: 'Tran',
+        lastname: 'Hp2',
         mobile: '01234567784'
     },
     {
         email: 'user-03@gmail.com',
         password: 123456,
-        firstname: 'ngo',
-        lastname: 'hip1',
+        firstname: 'Ngo',
+        lastname: 'Ha',
         mobile: '01234567785'
     },
     {
         email: 'user-04@gmail.com',
         password: 123456,
-        firstname: 'ngo',
-        lastname: 'hip4',
+        firstname: 'Le',
+        lastname: 'Bong',
         mobile: '01234567780'
     },
 ]

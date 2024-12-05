@@ -37,6 +37,7 @@
     "sweetalert2": "^11.7.3",
     "use-react-router-breadcrumbs": "^4.0.1",
     "web-vitals": "^2.1.4"
+    
   },
   "scripts": {
     "start": "react-scripts start",
@@ -64,5 +65,8 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.2.7"
-  }
+  },
+  "proxy": "http://localhost:8888"
+
+  
 }

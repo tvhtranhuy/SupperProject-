@@ -46,7 +46,7 @@ const Header = () => {
         <div className="md:flex hidden flex-col items-center px-6 border-r">
           <span className="flex gap-4 items-center">
             <MdEmail color="red" />
-            <span className="font-semibold">BLINDERHABCD@GMAIL.COM</span>
+            <span className="font-semibold">Kingtran113@GMAIL.COM</span>
           </span>
           <span>Online Support 24/7</span>
         </div>
