@@ -58,11 +58,11 @@ const Login = () => {
           const response = await apiRegister(payload)
           // Hàm xử lý sự kiện tạo tài khoản
           if (response && response.success) {
-            setIsVerifiedEmail(true)
-            // Swal.fire('Congratulations', response.mes, 'success').then(() => {
-            //     setIsRegister(false)
-            //     resetPayload()
-            // });
+            // setIsVerifiedEmail(true)
+            Swal.fire('Congratulations', response.mes, 'success').then(() => {
+                setIsRegister(false)
+                resetPayload()
+            });
           } else {
             Swal.fire('Oops!', response ? response.mes : 'An error occurred. Please try again later.', 'error')
           }

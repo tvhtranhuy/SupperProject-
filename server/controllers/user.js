@@ -29,53 +29,104 @@ const user = require("../models/user")
 //         })
 //     }
 // })
+// const register = asyncHandler(async (req, res) => {
+//   const { email, password, firstname, lastname, mobile } = req.body
+//   if (!email || !password || !lastname || !firstname || !mobile)
+//     return res.status(400).json({
+//       success: false,
+//       mes: "Missing inputs",
+//     })
+//   const user = await User.findOne({ email })
+//   if (user) throw new Error("User has existed")
+//   else {
+//     const token = makeToken()
+//     // const emailedited = btoa(email) + "@" + token
+//     const newUser = await User.create({
+//       // email: emailedited,
+//       email,
+//       password,
+//       firstname,
+//       lastname,
+//       mobile,
+//     })
+//     if (newUser) {
+//       const html = `<h2>Register code:</h2><br /><blockquote>${token}</blockquote>`
+//       await sendMail({
+//         email,
+//         html,
+//         subject: "Confirm register account in Digital World",
+//       })
+//     }
+//     setTimeout(async () => {
+//       // await User.deleteOne({ email: emailedited })
+//       await User.deleteOne({ email })
+
+//     },
+//      [300000])
+
+//     return res.json({
+//       success: newUser ? true : false,
+//       mes: newUser
+//         ? "Please check your email to active account"
+//         : "Some went wrong, please try later",
+//     })
+//   }
+// })
 const register = asyncHandler(async (req, res) => {
-  const { email, password, firstname, lastname, mobile } = req.body
+  const { email, password, firstname, lastname, mobile } = req.body;
+
+  // Kiểm tra các trường bắt buộc
   if (!email || !password || !lastname || !firstname || !mobile)
     return res.status(400).json({
       success: false,
       mes: "Missing inputs",
-    })
-  const user = await User.findOne({ email })
-  if (user) throw new Error("User has existed")
-  else {
-    const token = makeToken()
-    const emailedited = btoa(email) + "@" + token
-    const newUser = await User.create({
-      email: emailedited,
-      password,
-      firstname,
-      lastname,
-      mobile,
-    })
-    if (newUser) {
-      const html = `<h2>Register code:</h2><br /><blockquote>${token}</blockquote>`
-      await sendMail({
-        email,
-        html,
-        subject: "Confirm register account in Digital World",
-      })
-    }
-    setTimeout(async () => {
-      await User.deleteOne({ email: emailedited })
-    }, [300000])
+    });
 
+  // Kiểm tra nếu email đã tồn tại trong cơ sở dữ liệu
+  const user = await User.findOne({ email });
+  if (user) {
+    return res.status(400).json({
+      success: false,
+      mes: "User already exists",
+    });
+  }
+
+  // Tạo người dùng mới
+  const newUser = await User.create({
+    email,
+    password,
+    firstname,
+    lastname,
+    mobile,
+  });
+
+  // Nếu người dùng được tạo thành công
+  if (newUser) {
     return res.json({
-      success: newUser ? true : false,
-      mes: newUser
-        ? "Please check your email to active account"
-        : "Some went wrong, please try later",
-    })
+      success: true,
+      mes: "Account has been created successfully. You can now log in.",
+    });
+  } else {
+    return res.status(500).json({
+      success: false,
+      mes: "Something went wrong. Please try again later.",
+    });
   }
 })
+
 const finalRegister = asyncHandler(async (req, res) => {
   // const cookie = req.cookies
   const { token } = req.params
-  const notActivedEmail = await User.findOne({ email: new RegExp(`${token}$`) })
-  if (notActivedEmail) {
-    notActivedEmail.email = atob(notActivedEmail?.email?.split("@")[0])
-    notActivedEmail.save()
-  }
+  // const notActivedEmail = await User.findOne({ email: new RegExp(`${token}$`) })
+  // if (notActivedEmail) {
+  //   notActivedEmail.email = atob(notActivedEmail?.email?.split("@")[0])
+  //   notActivedEmail.save()
+  // }
+  const notActivedEmail = await User.findOne({ email })
+if (notActivedEmail) {
+  notActivedEmail.save()
+}
+
   return res.json({
     success: notActivedEmail ? true : false,
     mes: notActivedEmail

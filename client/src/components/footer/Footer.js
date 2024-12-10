@@ -49,7 +49,7 @@ const Footer = () => {
                 Mail:
               </span>
               <span className="opacity-70">
-                BLINDERH@ABCD.COM
+                TVHTRANHUY@ABCD.COM
               </span>
             </span>
           </div>
